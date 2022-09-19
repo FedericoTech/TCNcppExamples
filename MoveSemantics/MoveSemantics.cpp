@@ -8,7 +8,7 @@ class String
 public:
 	String() = default; //this and the one bellow are the same
 	//String(){}
-	//String(): m_Data(nullptr), m_Size(0){} //we need to init the pointers for the de-locations to work
+	//String(): m_Data(nullptr), m_Size(0){} //if the pointer wasn't allocated we need to initialise it here
 
 	String(const char* string) //this would work with constant Others
 	{
@@ -28,7 +28,7 @@ public:
 	}
 
 	//move constructor
-	String(String&& other) noexcept  //Other can't be constact as we are going to change it.
+	String(String&& other) noexcept  //Other can't be constant as we are going to change it.
 	{
 		std::cout << "Moved!" << std::endl;
 		m_Size = other.m_Size;
@@ -50,7 +50,7 @@ public:
 
 		m_Size = other.m_Size;
 
-		delete[] m_Data; //important, de-locate whatever was. the member had to be initialised too
+		delete[] m_Data; //important, deallocate whatever was. the member had to be initialised too
 		m_Data = new char[m_Size];
 
 		memcpy(m_Data, other.m_Data, m_Size);
@@ -59,7 +59,7 @@ public:
 	}
 
 	//move assignment operator
-	String& operator=(String&& other) noexcept //Other can't be constact as we are going to change it.
+	String& operator=(String&& other) noexcept //Other can't be constant as we are going to change it.
 	{
 		std::cout << "Move assigned!" << std::endl;
 
@@ -69,7 +69,7 @@ public:
 
 		m_Size = other.m_Size;
 
-		delete[] m_Data; //important, de-locate whatever was. the member had to be initialised too
+		delete[] m_Data; //important, deallocate whatever was. the member had to be initialised too
 		m_Data = other.m_Data; //we move the pointer of other to this object
 
 		//we steal the data of other
